@@ -53,7 +53,9 @@ class PrototypesController < ApplicationController
   end
 
   def move_to_index
-    unless user_signed_in?
+    @prototype = Prototype.find(params[:id])
+    unless user_signed_in? && current_user.id == @prototype.user.id
+      #現在ログインしているユーザー.id = プロトタイプを投稿したユーザー.id
       redirect_to action: :index
     end
   end
